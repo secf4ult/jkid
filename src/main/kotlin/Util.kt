@@ -12,10 +12,9 @@ internal fun <T : Any> KClass<T>.createInstance(): T {
     val noArgConstructor = constructors.find {
         it.parameters.isEmpty()
     }
-    noArgConstructor ?: throw IllegalArgumentException(
-            "Class must have a no-argument constructor")
 
-    return noArgConstructor.call()
+    return noArgConstructor?.call() ?: throw IllegalArgumentException(
+            "Class must have a no-argument constructor")
 }
 
 fun Type.asJavaClass(): Class<Any> = when (this) {
